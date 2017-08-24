@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ © 2016. All Rights Reserved.
+  ~ TeraBundle Anlytics Pvt. Ltd. http://www.terabundle.com
+  ~ For copyright queries, contact the Founder, Susanta Tewari at tewaris@terabundle.com.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.terabundle</groupId>
+        <artifactId>commons-bom-main</artifactId>
+        <version>1.0.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>framework-demo-helloworld</artifactId>
+    <version>1.0.0</version>
+
+    <dependencies>
+
+        <!--commons-app-->
+        <dependency>
+            <groupId>com.terabundle</groupId>
+            <artifactId>commons-app-pui</artifactId>
+            <version>${commons.app.pui.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.terabundle</groupId>
+            <artifactId>commons-app-cef</artifactId>
+            <version>${commons.app.cef.version}</version>
+        </dependency>
+
+        <!--commons-util-->
+        <dependency>
+            <groupId>com.terabundle</groupId>
+            <artifactId>commons-util</artifactId>
+            <version>${commons.util.version}</version>
+        </dependency>
+
+        <!--Netbeans-->
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util</artifactId>
+            <version>8.15.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-modules</artifactId>
+            <version>7.23.1</version>
+        </dependency>
+
+
+        <!--Data Structures-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <!--Exceptions & Logging-->
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
+
+        <!--Run-->
+        <dependency>
+            <groupId>com.terabundle</groupId>
+            <artifactId>commons-app-console</artifactId>
+            <version>${commons.app.console.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.terabundle</groupId>
+            <artifactId>commons-ignite</artifactId>
+            <version>${commons.ignite.version}</version>
+            <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-app-console</artifactId>
+                    <groupId>com.terabundle</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--Test-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.5</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

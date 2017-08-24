@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ © 2016. All Rights Reserved.
+  ~ TeraBundle Anlytics Pvt. Ltd. http://www.terabundle.com
+  ~ For copyright queries, contact the Founder, Susanta Tewari at tewaris@terabundle.com.
+  -->
+
+<cjobs xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+      xmlns='commons.console'
+      version='1.0'
+      xsi:schemaLocation='commons.console ConsoleProperties.xsd'>
+    <run runner="serial">
+
+        <runnerProps ignore="false">
+            <propertyGroup label="Parallel">
+                <property>
+                    <key>parallel.nThreads</key>
+                    <value>3</value>
+                </property>
+            </propertyGroup>
+            <propertyGroup label="RMI">
+                <property>
+                    <key>rmi.host</key>
+                    <value>DPC</value>
+                </property>
+            </propertyGroup>
+        </runnerProps>
+
+        <!-- Hello World -->
+        <runJob ignore="false" jobID="helloworld.cef.HelloWorld_Evt">
+            <repeat ignore="false" count="10" reducer="commons.console.CountReducer">
+                <propsGroup label="one" ignore="false">
+                    <props label="Repeat-1" ignore="false">
+                        <property>
+                            <key>helloworld.builder.String.name</key>
+                            <value>Susanta</value>
+                        </property>
+                    </props>
+                    <props label="Repeat-2" ignore="false">
+                        <property>
+                            <key>helloworld.builder.String.name</key>
+                            <value>John</value>
+                        </property>
+                    </props>
+                    <props label="Repeat-3" ignore="false">
+                        <property>
+                            <key>helloworld.builder.String.name</key>
+                            <value>Kalpana</value>
+                        </property>
+                    </props>
+                </propsGroup>
+            </repeat>
+        </runJob>
+    </run>
+    <cjob ID="helloworld.cef.HelloWorld_Evt" label="Hello World"
+         list="HelloWorld"
+         event="helloworld.cef.HelloWorld_Evt"
+         impl="helloworld.cef.pui.HelloWorld_EvtImpl"
+         cmd="helloworld.cef.HelloWorld_Cmd"
+            >
+        <property>
+            <key>helloworld.cef.HelloWorld_Evt.outputListeners</key>
+            <value>helloworld.cef.listener.HelloWorldCommandListener</value>
+            <note>command output listeners</note>
+        </property>
+        <property>
+            <key>helloworld.builder.String.name</key>
+            <value>Martian</value>
+        </property>
+    </cjob>
+</cjobs>

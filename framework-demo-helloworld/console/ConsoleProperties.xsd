@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ © 2016. All Rights Reserved.
+  ~ TeraBundle Anlytics Pvt. Ltd. http://www.terabundle.com
+  ~ For copyright queries, contact the Founder, Susanta Tewari at tewaris@terabundle.com.
+  -->
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:pui="commons.console"
+        attributeFormDefault="unqualified"
+        elementFormDefault="qualified"
+        targetNamespace="commons.console">
+
+    <element name="cjobs" type="pui:Jobs"/>
+
+    <complexType name="Jobs">
+        <sequence>
+            <element name="run" maxOccurs="1" minOccurs="0">
+                <complexType>
+                    <annotation>
+                        <documentation> Runner type and its execution parameters.</documentation>
+                    </annotation>
+                    <sequence>
+                        <element name="runnerProps" maxOccurs="1" minOccurs="0">
+                            <complexType>
+                                <annotation>
+                                    <documentation>Properties for runner implementations. Maximum, a single tag allowed.</documentation>
+                                </annotation>
+                                <sequence>
+                                    <choice minOccurs="0" maxOccurs="unbounded">
+                                        <element name="property" type="pui:Property" maxOccurs="unbounded"
+                                                 minOccurs="1"/>
+                                        <element name="propertyGroup" type="pui:PropertyGroup" maxOccurs="unbounded"
+                                                 minOccurs="0"/>
+                                    </choice>
+                                    <element name="note" type="string" maxOccurs="1" minOccurs="0"/>
+                                </sequence>
+                                <attribute name="ignore" type="boolean" use="optional" default="false"/>
+                            </complexType>
+                        </element>
+                        <element name="runJob" maxOccurs="unbounded" minOccurs="1">
+                            <complexType>
+                                <annotation>
+                                    <documentation>Multiple tags allowed, minimum one.</documentation>
+                                </annotation>
+                                <sequence>
+                                    <element name="repeat" type="pui:Repeat" maxOccurs="1" minOccurs="0"/>
+                                </sequence>
+                                <attribute name="ignore" type="boolean" use="optional" default="false"/>
+                                <attribute name="jobID" type="IDREF" use="required"/>
+                            </complexType>
+                        </element>
+                    </sequence>
+                    <attribute name="runner" type="pui:Runner" use="optional"/> <!-- CcRunner provider implementation code.-->
+                </complexType>
+            </element>
+            <element name="note" type="string" maxOccurs="1" minOccurs="0"/>
+            <element name="cjob" type="pui:Job" maxOccurs="unbounded" minOccurs="1"/>
+        </sequence>
+        <attribute name="version" type="string" use="required"/>
+    </complexType>
+
+    <simpleType name="Runner">
+        <annotation>
+            <documentation>CcRunner provider implementation code.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="serial"/>
+            <enumeration value="parallel"/>
+            <enumeration value="ignite"/>
+            <enumeration value="rmi"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="Repeat">
+        <sequence>
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element name="props" type="pui:Props" maxOccurs="unbounded"
+                         minOccurs="0"/>
+                <element name="propsGroup" type="pui:PropsGroup" maxOccurs="unbounded"
+                         minOccurs="0"/>
+            </choice>
+            <element name="note" type="string" maxOccurs="1" minOccurs="0"/>
+        </sequence>
+        <attribute name="ignore" type="boolean" use="optional" default="false"/>
+        <attribute name="count" type="integer" use="optional" default="1"/>
+        <attribute name="reducer" type="string" use="optional"/>
+    </complexType>
+
+    <complexType name="Props">
+        <sequence>
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element name="property" type="pui:Property" maxOccurs="unbounded" minOccurs="1"/>
+            </choice>
+            <element name="note" type="string" maxOccurs="1" minOccurs="0"/>
+        </sequence>
+        <attribute name="ignore" type="boolean" use="optional" default="false"/>
+        <attribute name="label" type="string" use="optional"/>
+    </complexType>
+
+    <complexType name="PropsGroup">
+        <sequence>
+            <element name="props" type="pui:Props" maxOccurs="unbounded"
+                     minOccurs="1"/>
+        </sequence>
+        <attribute name="label" type="string" use="required"/>
+        <attribute name="ignore" type="boolean" use="optional" default="false"/>
+    </complexType>
+
+    <complexType name="Job">
+        <sequence>
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <!--  The property keys must be unique within a single cjob.-->
+                <element name="property" type="pui:Property" maxOccurs="unbounded"
+                         minOccurs="1"/>
+                <element name="propertyGroup" type="pui:PropertyGroup" maxOccurs="unbounded"
+                         minOccurs="0"/>
+            </choice>
+            <element name="note" type="string" maxOccurs="1" minOccurs="0"/>
+        </sequence>
+        <attribute name="ID" type="ID" use="required"/>
+        <attribute name="label" type="string" use="required"/>
+        <attribute name="list" type="string" use="required"/>
+        <attribute name="event" type="string" use="required"/><!--event interface class-->
+        <attribute name="impl" type="string" use="required"/><!--event-implementation class-->
+        <attribute name="cmd" type="string" use="required"/><!--corresponding command class-->
+    </complexType>
+
+    <complexType name="Property">
+        <sequence>
+            <!-- needs to be unique only for the cjob -->
+            <element name="key" type="string" maxOccurs="1" minOccurs="1"/>
+            <element name="value" type="string" maxOccurs="1" minOccurs="1"/>
+            <element name="note" type="string" maxOccurs="1" minOccurs="0"/>
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element name="property" type="pui:Property" maxOccurs="unbounded"
+                         minOccurs="0"/>
+                <element name="propertyGroup" type="pui:PropertyGroup" maxOccurs="unbounded"
+                         minOccurs="0"/>
+            </choice>
+        </sequence>
+        <attribute name="ignore" type="boolean" use="optional" default="false"/>
+        <attribute name="label" type="string" use="optional"/>
+    </complexType>
+
+    <complexType name="PropertyGroup">
+        <sequence>
+            <choice minOccurs="1" maxOccurs="unbounded">
+                <element name="property" type="pui:Property" maxOccurs="unbounded"
+                         minOccurs="0"/>
+                <element name="propertyGroup" type="pui:PropertyGroup" maxOccurs="unbounded"
+                         minOccurs="0"/>
+            </choice>
+        </sequence>
+        <attribute name="label" type="string" use="required"/>
+        <attribute name="ignore" type="boolean" use="optional" default="false"/>
+    </complexType>
+
+</schema>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ © 2016. All Rights Reserved.
+  ~ TeraBundle Anlytics Pvt. Ltd. http://www.terabundle.com
+  ~ For copyright queries, contact the Founder, Susanta Tewari at tewaris@terabundle.com.
+  -->
+
+<!-- Configuration: https://logging.apache.org/log4j/2.x/manual/configuration.html -->
+<Configuration status="warn">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        <File name="System" fileName="system.log" immediateFlush="false" append="false">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="cef.command" level="warn" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--<Logger name="org.hibernate.SQL" level="debug" additivity="false">-->
+            <!--<AppenderRef ref="System"/>-->
+        <!--</Logger>-->
+        <Root level="warn">
+            <AppenderRef ref="System"/>
+        </Root>
+    </Loggers>
+</Configuration>

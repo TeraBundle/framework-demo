@@ -1,0 +1,12 @@
+-- Console --
+Main class: commons.console.ConsoleClient
+VM arguments: 
+-Xmx3000m                                                  
+-Djava.util.logging.config.file=console/log.properties     
+-Dapp.properties=$MODULE_DIR$/console/ConsoleProperties.xml
+-Dlog4j.configurationFile=console/log4j2.xml
+Classpath module: tbundle-helloworld
+Working directory: $MODULE_DIR$
+
+-- RMI--
+rmiregistry -J-Djava.rmi.server.useCodebaseOnly=false

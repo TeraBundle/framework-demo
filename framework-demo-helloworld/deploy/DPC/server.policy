@@ -1,0 +1,15 @@
+grant codeBase "file:/C:/wspace/commons/app/module-console/target/classes/-" {
+    permission java.security.AllPermission;
+};
+
+grant codeBase "file:/C:/wspace/commons/app/module-helloworld/target/classes/-" {
+    permission java.security.AllPermission;
+};
+
+grant codeBase "file:/C:/Program%20Files%20(x86)/JetBrains/IntelliJ%20IDEA%202016.2.4/lib/idea_rt.jar" {
+    permission java.security.AllPermission;
+};
+
+grant {
+    permission java.net.SocketPermission "*:1024-65535","connect,accept";
+};
