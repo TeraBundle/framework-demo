@@ -19,6 +19,19 @@
     <artifactId>demo-helloworld</artifactId>
     <version>1.0.0</version>
 
+    <repositories>
+        <repository>
+            <id>releases</id>
+            <name>TeraBundle Releases</name>
+            <url>http://pal98.com:8081/nexus/content/repositories/releases</url>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <name>TeraBundle Snapshots</name>
+            <url>http://pal98.com:8081/nexus/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <!--commons-app-->
@@ -44,12 +57,12 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-util</artifactId>
-            <version>8.15.1</version>
+            <version>${netbeans.version}</version>
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-modules</artifactId>
-            <version>7.23.1</version>
+            <version>${netbeans.version}</version>
         </dependency>
 
 

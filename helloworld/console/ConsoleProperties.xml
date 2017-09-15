@@ -11,7 +11,7 @@
       xsi:schemaLocation='commons.console ConsoleProperties.xsd'>
     <run runner="serial">
 
-        <runnerProps ignore="false">
+        <runnerProps ignore="true">
             <propertyGroup label="Parallel">
                 <property>
                     <key>parallel.nThreads</key>
